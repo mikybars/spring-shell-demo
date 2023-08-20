@@ -1,6 +1,7 @@
 plugins {
     java
     id("org.springframework.boot") version ("3.1.2")
+    id("org.graalvm.buildtools.native") version("0.9.16")
 }
 
 group = "com.github.mikybars.demo"
@@ -22,4 +23,10 @@ dependencies {
 
 tasks.compileJava {
     options.compilerArgs.add("-parameters")
+}
+
+graalvmNative {
+    metadataRepository {
+        enabled.set(true)
+    }
 }
