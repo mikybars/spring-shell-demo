@@ -5,10 +5,14 @@ plugins {
 }
 
 group = "com.github.mikybars.demo"
-version = "0.0.1-SNAPSHOT"
+version = "1.0.0"
 
 repositories {
     mavenCentral()
+}
+
+springBoot {
+    buildInfo()
 }
 
 dependencies {

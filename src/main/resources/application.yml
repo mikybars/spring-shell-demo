@@ -1,6 +1,11 @@
 spring:
   main:
     banner-mode: off
+  shell:
+    command:
+      version:
+        show-build-name: true
+        show-build-time: true
 logging:
   level:
     root: warn
