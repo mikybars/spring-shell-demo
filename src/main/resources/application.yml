@@ -4,3 +4,7 @@ spring:
 logging:
   level:
     root: warn
+  pattern:
+    console:
+  file:
+    name: shell.log
