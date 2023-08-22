@@ -1,6 +1,7 @@
 package com.github.mikybars.demo.spring.shell;
 
 import org.jline.utils.Log;
+import org.springframework.shell.Availability;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
@@ -11,6 +12,8 @@ import java.net.URL;
 
 @ShellComponent
 public class MyCommands {
+
+    private boolean adminEnableExecuted;
 
     @ShellMethod(value = "Say hello", key = { "hello-world", "hw" })
     public String helloWorld(@ShellOption(defaultValue = "spring") String arg) {
@@ -31,6 +34,18 @@ public class MyCommands {
             return "File not found: " + file;
         }
         return "Done.";
+    }
+
+    @ShellMethod(value = "Enable admin commands", key = "admin-enable")
+    public String adminEnable() {
+        adminEnableExecuted = true;
+        return "Admin commands enabled.";
+    }
+
+    public Availability webSaveAvailability() {
+        return adminEnableExecuted
+                ? Availability.available()
+                : Availability.unavailable("you must first run admin-enable");
     }
 
     private String getContentsOfUrlAsString(String url) {
