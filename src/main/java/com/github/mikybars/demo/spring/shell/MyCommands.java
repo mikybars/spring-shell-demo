@@ -11,7 +11,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 @Command
-class MyCommands {
+public class MyCommands {
 
     private boolean adminEnableExecuted;
 
