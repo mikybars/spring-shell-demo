@@ -15,20 +15,17 @@ class MyCommands {
 
     private boolean adminEnableExecuted;
 
-    @Command(command = "hello-world", alias = "hw",
-            description = "Say hello.")
+    @Command(alias = "hw", description = "Say hello.")
     public String helloWorld(@Option(defaultValue = "spring") String arg) {
         return "Hello World " + arg;
     }
 
-    @Command(command = "web-get", alias = "wg",
-            description = "Get contents of URL.")
+    @Command(alias = "wg", description = "Get contents of URL.")
     public String webGet(String url) {
         return getContentsOfUrlAsString(url);
     }
 
-    @Command(command = "web-save", alias = "ws",
-            description = "Save the contents of URL to file.")
+    @Command(alias = "ws", description = "Save the contents of URL to file.")
     public String webSave(String url, @Option(longNames = {"out", "file"}) String file) {
         String contents = getContentsOfUrlAsString(url);
         try (PrintWriter out = new PrintWriter(file)) {
@@ -39,14 +36,13 @@ class MyCommands {
         return "Done.";
     }
 
-    @Command(command = "admin-enable", alias = "admin",
-            description = "Enable admin commands.")
+    @Command(alias = "admin", description = "Enable admin commands.")
     public String adminEnable() {
         adminEnableExecuted = true;
         return "Admin commands enabled.";
     }
 
-    @Command(command = "change-password", description = "Change password.")
+    @Command(description = "Change password.")
     public String changePassword(@Size(min = 8, max = 40) String password) {
         return "Password successfully set to " + password;
     }
