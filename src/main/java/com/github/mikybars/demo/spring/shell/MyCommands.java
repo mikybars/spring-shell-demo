@@ -2,31 +2,33 @@ package com.github.mikybars.demo.spring.shell;
 
 import org.jline.utils.Log;
 import org.springframework.shell.Availability;
-import org.springframework.shell.standard.ShellComponent;
-import org.springframework.shell.standard.ShellMethod;
-import org.springframework.shell.standard.ShellOption;
+import org.springframework.shell.command.annotation.Command;
+import org.springframework.shell.command.annotation.Option;
 
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-@ShellComponent
-public class MyCommands {
+@Command
+class MyCommands {
 
     private boolean adminEnableExecuted;
 
-    @ShellMethod(value = "Say hello", key = { "hello-world", "hw" })
-    public String helloWorld(@ShellOption(defaultValue = "spring") String arg) {
+    @Command(command = "hello-world", alias = "hw",
+            description = "Say hello")
+    public String helloWorld(@Option(defaultValue = "spring") String arg) {
         return "Hello World " + arg;
     }
 
-    @ShellMethod(value = "Get contents of URL", key = { "web-get", "wg" })
+    @Command(command = "web-get", alias = "wg",
+            description = "Get contents of URL")
     public String webGet(String url) {
         return getContentsOfUrlAsString(url);
     }
 
-    @ShellMethod(value = "Save the contents of URL to file", key = { "web-save", "ws" })
-    public String webSave(String url, @ShellOption({ "out", "file" }) String file) {
+    @Command(command = "web-save", alias = "ws",
+            description = "Save the contents of URL to file")
+    public String webSave(String url, @Option(longNames = {"out", "file"}) String file) {
         String contents = getContentsOfUrlAsString(url);
         try (PrintWriter out = new PrintWriter(file)) {
             out.write(contents);
@@ -36,7 +38,8 @@ public class MyCommands {
         return "Done.";
     }
 
-    @ShellMethod(value = "Enable admin commands", key = "admin-enable")
+    @Command(command = "admin-enable", alias = "admin",
+            description = "Enable admin commands")
     public String adminEnable() {
         adminEnableExecuted = true;
         return "Admin commands enabled.";
